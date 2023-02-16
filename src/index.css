@@ -106,7 +106,9 @@ h1{
   background-color: rgba(255, 255, 255, 0.2);
   align-self: flex-end;
 }
-
+.app .detail {
+  font-size: 1rem;
+}
 .bold{
   font-weight: 700;
 }
