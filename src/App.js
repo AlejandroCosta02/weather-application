@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
-
+import Input_Component from "./components/Input_Component";
+import Card_Weather from "./components/Card_Weather";
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
@@ -18,49 +19,65 @@ function App() {
     }
   };
 
+  //send data
+  const cityName = data.name;
+  const dataTemp = data.main ? <h1>{data.main.temp.toFixed()}°C</h1> : null;
+
+  const dataHum = data.main ? (
+    <p className="bold">{data.main.humidity}%</p>
+  ) : null;
+
+  const dataDesc = data.weather ? <p>{data.weather[0].main}</p> : null;
+  const dataFeel = data.main ? (
+    <p className="bold">{data.main.feels_like.toFixed()}°C</p>
+  ) : null;
+
+  const dataWind = data.wind ? (
+    <p className="bold">{data.wind.speed.toFixed()} MPH</p>
+  ) : null;
+
+  const dataFinal = data.name !== undefined && (
+    <div className="bottom">
+      <div className="feels">
+        {data.main ? (
+          <p className="bold">{data.main.feels_like.toFixed()}°C</p>
+        ) : null}
+        <p className="detail">Feels Like</p>
+      </div>
+      <div className="humidity">
+        {data.main ? <p className="bold">{data.main.humidity}%</p> : null}
+
+        <p className="detail">Humidity</p>
+      </div>
+      <div className="wind">
+        {data.wind ? (
+          <p className="bold">{data.wind.speed.toFixed()} MPH</p>
+        ) : null}
+        <p className="detail">Wind</p>
+      </div>
+    </div>
+  );
   return (
     <div className="app">
       <div className="search">
-        <input
+        <Input_Component
           value={location}
           onChange={(event) => setLocation(event.target.value)}
           onKeyPress={searchLocation}
-          placeholder="Enter location"
+          placeholder="City"
         />
+     
       </div>
-      <div className="container">
-        <div className="top">
-          <div className="location">
-            <p>{data.name}</p>
-          </div>
-          <div className="temp">
-            {data.main ? <h1>{data.main.temp.toFixed()}°C</h1> : null}
-          </div>
-          <div className="description">
-            {data.weather ? <p>{data.weather[0].main}</p> : null}
-          </div>
-        </div>
-
-        {data.name !== undefined &&
-
-        <div className="bottom">
-          <div className="feels">
-            {data.main ? <p className="bold">{data.main.feels_like.toFixed()}°C</p> : null}
-            <p className="detail">Feels Like</p>
-          </div>
-          <div className="humidity">
-            {data.main ? <p className="bold">{data.main.humidity}%</p> : null}
-
-            <p className="detail">Humidity</p>
-          </div>
-          <div className="wind">
-            {data.wind ? <p className="bold">{data.wind.speed.toFixed()} MPH</p> : null}
-            <p className="detail">Wind</p>
-          </div>
-        </div>
-        }
-
-      </div>
+      <Card_Weather
+        dataName={cityName}
+        dataTemp={dataTemp}
+        dataDesc={dataDesc}
+        dataFeel={dataFeel}
+        dataHum={dataHum}
+        dataWind={dataWind}
+        dataFinal={dataFinal}
+      />
+      
     </div>
   );
 }
