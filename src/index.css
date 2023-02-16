@@ -14,6 +14,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* When a screen is 992px or smaller, the background color will be pink */
+@media screen and (max-width: 992px) {
+  body {
+    background-color: pink;
+  }
+}
+
+/* When a screen is 600px or smaller, the background color will be blue */
+@media screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}
+
 p{
   font-size: 1.6rem;
 }
@@ -59,7 +73,7 @@ h1{
 }
 .container{
   max-width: 700px;
-  height: 700px;
+  height: 80%;
   margin: auto;
   padding: 0 1rem;
   position: relative;
@@ -89,7 +103,8 @@ h1{
   margin: 1rem auto;
   padding: 1rem;
   border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.2)
+  background-color: rgba(255, 255, 255, 0.2);
+  align-self: flex-end;
 }
 
 .bold{
